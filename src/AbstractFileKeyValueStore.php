@@ -8,9 +8,7 @@
 
 namespace App\Store;
 
-
 use App\Store\Exception\InvalidConfigException;
-use http\Exception\InvalidArgumentException;
 
 abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
 {
@@ -85,7 +83,9 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      */
     public function get($key, $default = null)
     {
-        // TODO: Implement get() method.
+        $data = $this->load();
+
+        return isset($data[$key]) ? $data[$key] : $default;
     }
 
     /**
@@ -97,7 +97,8 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      */
     public function has(string $key): bool
     {
-        // TODO: Implement has() method.
+        $data = $this->load();
+        return isset($data[$key]);
     }
 
     /**
@@ -107,7 +108,11 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      */
     public function remove(string $key): void
     {
-        // TODO: Implement remove() method.
+        $data = $this->load();
+        if(isset($data[$key])){
+            unset($data[$key]);
+            $this->update($data);
+        }
     }
 
     /**
@@ -115,7 +120,7 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      */
     public function clear(): void
     {
-        // TODO: Implement clear() method.
+        \file_put_contents($this->file, '', \LOCK_EX);
     }
 
 

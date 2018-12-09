@@ -3,22 +3,20 @@
  * Created by PhpStorm.
  * User: whoisthere
  * Date: 09.12.18
- * Time: 13:41
+ * Time: 14:43
  */
 
 namespace App\Store;
 
-use Symfony\Component\Yaml\Yaml;
 
-class YamlKeyValuesStore extends AbstractFileKeyValueStore
+class JsonKeyValuesStore extends AbstractFileKeyValueStore
 {
-
     /**
      * {@inheritdoc}
      */
     protected function load(): array
     {
-        $data = Yaml::parseFile($this->file);
+        $data = \file_get_contents($this->file);
         return \is_array($data) ? $data : [];
     }
 
@@ -27,7 +25,6 @@ class YamlKeyValuesStore extends AbstractFileKeyValueStore
      */
     protected function update(array $data): void
     {
-        $yaml = Yaml::dump($data);
-        \file_put_contents($this->file, $yaml, \LOCK_EX);
+
     }
 }
