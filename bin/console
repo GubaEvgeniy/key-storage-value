@@ -2,3 +2,29 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+
+use App\Store\InMemoryKeyValueStore;
+use App\Store\JsonKeyValuesStore;
+use App\Store\YamlKeyValuesStore;
+
+echo \sprintf("Value Store in Memory\n");
+
+$storageMemory = new InMemoryKeyValueStore();
+$storageMemory->set('timeMemory', \date('H-i-s'));
+echo \sprintf("Example: use method get. Result: key = %s value = %s \n", $storageMemory->get('timeMemory'), 'timeMemory');
+
+
+echo \sprintf("\n-----\nValue Store in Yaml\n");
+$storageYaml = new YamlKeyValuesStore('./data/key-value-store.yaml');
+$storageYaml->set('timeYaml', \date('H-i-s'));
+$storageYaml->get('time');
+
+echo \sprintf("Example: use method get. Result: key = %s value = %s \n", $storageYaml->get('timeYaml'), 'timeYaml');
+
+echo \sprintf("\n-----\nValue Store in Json\n");
+$storageJson = new JsonKeyValuesStore('./data/key-value-store.json');
+$storageJson->set('timeJson', \date('H-i-s'));
+$storageJson->get('timeJson');
+
+echo \sprintf("Example: use method get. Result: key = %s value = %s \n", $storageJson->get('timeJson'), 'timeJson');

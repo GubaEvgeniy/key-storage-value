@@ -87,6 +87,7 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
     public function get($key, $default = null)
     {
         $data = $this->load();
+
         return $data[$key] ?? $default;
     }
 

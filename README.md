@@ -29,19 +29,11 @@ if ($store->has('db_name')) {
 $store->clear();
 ```
 
-Tests
+Example
 -----
 
-You can run tests for each storage implementation with following command
+`$ ./bin/tests console`
 
-`$ ./bin/tests <store-type>`
+or
 
-available types:
-
-- `in-memory`
-- `json`
-- `yaml`
-
-example
-
-`$ ./bin/tests json`
+`your.site/bin/test.php`
