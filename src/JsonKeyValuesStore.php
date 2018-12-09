@@ -16,7 +16,9 @@ class JsonKeyValuesStore extends AbstractFileKeyValueStore
      */
     protected function load(): array
     {
-        $data = \file_get_contents($this->file);
+        $json = \file_get_contents($this->file);
+        $data = \json_decode($json, true);
+
         return \is_array($data) ? $data : [];
     }
 
@@ -25,6 +27,7 @@ class JsonKeyValuesStore extends AbstractFileKeyValueStore
      */
     protected function update(array $data): void
     {
-
+        $json = json_encode($data, \JSON_PRETTY_PRINT);
+        \file_put_contents($this->file, $json, \LOCK_EX);
     }
 }

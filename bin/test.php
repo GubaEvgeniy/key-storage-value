@@ -24,9 +24,11 @@ $storageYaml = new YamlKeyValuesStore('../data/key-value-store.yaml');
 $storageYaml->set('timeYaml', date('H-i-s'));
 $storageYaml->get('time');
 
-var_dump($storageYaml->get('time'));
-
 echo \sprintf("Example: use method get. Result: key = %s value = %s \n", $storageYaml->get('timeYaml'), 'timeYaml');
 
 echo \sprintf("<br>-----<br>Value Store in Json<br>");
 $storageJson = new JsonKeyValuesStore('../data/key-value-store.json');
+$storageJson->set('timeJson', date('H-i-s'));
+$storageJson->get('timeJson');
+
+echo \sprintf("Example: use method get. Result: key = %s value = %s \n", $storageJson->get('timeJson'), 'timeJson');
