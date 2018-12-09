@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: whoisthere
- * Date: 09.12.18
- * Time: 11:42
+
+/*
+ * This file is part of the "key-value-storage" package.
+ *
+ * (c) Evgeniy Guba <evgeniyguba@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Store;
@@ -18,7 +21,6 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      *
      * @var string
      */
-
     protected $file;
 
     /**
@@ -32,6 +34,7 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      * Update data
      *
      * @param array $data
+     *
      * @return mixed
      */
     abstract protected function update(array $data): void;
@@ -44,15 +47,15 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
      */
     public function __construct(string $pathToFile)
     {
-        if(empty($pathToFile)){
+        if (empty($pathToFile)) {
             throw new InvalidConfigException('You should specify path to file');
         }
 
-        if('/' === \substr($pathToFile, -1, 1)){
+        if ('/' === \substr($pathToFile, -1, 1)) {
             throw new InvalidConfigException('You should specify path to file, path to directory given');
         }
 
-        if(!\file_exists($pathToFile)) {
+        if (!\file_exists($pathToFile)) {
             throw new InvalidConfigException('File does not exist, you should create it');
         }
 
@@ -84,8 +87,7 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
     public function get($key, $default = null)
     {
         $data = $this->load();
-
-        return isset($data[$key]) ? $data[$key] : $default;
+        return $data[$key] ?? $default;
     }
 
     /**
@@ -98,6 +100,7 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
     public function has(string $key): bool
     {
         $data = $this->load();
+
         return isset($data[$key]);
     }
 
@@ -109,7 +112,8 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
     public function remove(string $key): void
     {
         $data = $this->load();
-        if(isset($data[$key])){
+
+        if (isset($data[$key])) {
             unset($data[$key]);
             $this->update($data);
         }
@@ -122,6 +126,4 @@ abstract class AbstractFileKeyValueStore implements KeyValueStoreInterface
     {
         \file_put_contents($this->file, '', \LOCK_EX);
     }
-
-
 }

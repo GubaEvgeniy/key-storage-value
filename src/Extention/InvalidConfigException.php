@@ -1,13 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: whoisthere
- * Date: 09.12.18
- * Time: 13:46
+
+/*
+ * This file is part of the "key-value-storage" package.
+ *
+ * (c) Evgeniy Guba <evgeniyguba@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace App\Store\Exception;
 
 final class InvalidConfigException extends \LogicException
 {
 }
-

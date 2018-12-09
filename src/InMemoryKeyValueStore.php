@@ -1,17 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: whoisthere
- * Date: 09.12.18
- * Time: 12:50
+
+/*
+ * This file is part of the "key-value-storage" package.
+ *
+ * (c) Evgeniy Guba <evgeniyguba@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Store;
 
-
 class InMemoryKeyValueStore implements KeyValueStoreInterface
 {
-
     private $storage = [];
 
     /**
@@ -58,7 +59,7 @@ class InMemoryKeyValueStore implements KeyValueStoreInterface
      */
     public function remove(string $key): void
     {
-        if($this->storage[$key]) {
+        if ($this->storage[$key]) {
             unset($this[$key]);
         }
     }
